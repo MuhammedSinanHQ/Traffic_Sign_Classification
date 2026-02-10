@@ -81,7 +81,7 @@ def predict():
         image_array = np.expand_dims(image_array, axis=0)
         
         # Make prediction
-        predictions = model.predict(image_array)
+        predictions = model(image_array, training=False)
         predicted_class = np.argmax(predictions)
         confidence = np.max(predictions) * 100
         
