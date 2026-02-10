@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Sign Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚦 Traffic Sign Classification</h1>
+            <p>Upload an image of a traffic sign to classify it</p>
+        </header>
+
+        <div class="upload-section">
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <div class="file-input-wrapper">
+                    <input type="file" name="file" id="file" accept="image/*" required>
+                    <label for="file" class="file-label">Choose Image</label>
+                    <span id="file-name" class="file-name">No file selected</span>
+                </div>
+                <button type="submit" class="predict-btn">Predict Sign</button>
+            </form>
+        </div>
+
+        {% if error %}
+        <div class="result error">
+            <h3>❌ Error</h3>
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        {% if prediction %}
+        <div class="result success">
+            <h3>✅ Prediction Result</h3>
+            <div class="prediction-details">
+                <p class="prediction-label"><strong>Sign Type:</strong> {{ prediction }}</p>
+                <p class="confidence"><strong>Confidence:</strong> {{ confidence }}%</p>
+                <p class="class-id"><strong>Class ID:</strong> {{ class_id }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        <footer>
+            <p>Powered by TensorFlow & Flask | GTSRB Dataset (43 classes)</p>
+        </footer>
+    </div>
+
+    <script>
+        // Display selected file name
+        const fileInput = document.getElementById('file');
+        const fileName = document.getElementById('file-name');
+        
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                fileName.textContent = e.target.files[0].name;
+            } else {
+                fileName.textContent = 'No file selected';
+            }
+        });
+    </script>
+</body>
+</html>
