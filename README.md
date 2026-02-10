@@ -38,5 +38,5 @@ German Traffic Sign Recognition Benchmark (GTSRB)
 
 ---
 
-## ⚙️ Project Structure
+
 
